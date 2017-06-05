@@ -149,10 +149,10 @@ class ElasticNet(BaseEstimator):
         self.random_state = random_state
         self.verbose = verbose
 
-        if any(self.lower_limits)>0 if isinstance(self.lower_limits, np.ndarray) else self.lower_limits>0:
+        if (self.lower_limits>0).any() if isinstance(self.lower_limits, np.ndarray) else self.lower_limits>0:
             raise ValueError("lower_limits must be non-positive")
 
-        if any(self.upper_limits)<0 if isinstance(self.upper_limits, np.ndarray) else self.upper_limits<0:
+        if (self.upper_limits<0).any() if isinstance(self.upper_limits, np.ndarray) else self.upper_limits<0:
             raise ValueError("upper_limits must be positive")
 
 
