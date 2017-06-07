@@ -23,6 +23,11 @@ cd python-glmnet
 python setup.py install
 ```
 
+Alternatively, one can install the zipped project directly from GitHub.
+```bash
+pip3 install https://github.com/HIVERY/python-glmnet/archive/master.zip
+```
+
 Usage
 -----
 
@@ -67,6 +72,23 @@ from glmnet import ElasticNet
 
 m = ElasticNet()
 m = m.fit(x, y)
+```
+
+Here are some of the features available in glmnet.
+
+```python
+import numpy as np
+m = ElasticNet(alpha=0.01)  # set the alpha values
+m = ElasticNet(fit_intercept=False)  # disable the intercept fit
+m = ElasticNet(lambda_path=np.exp(np.linspace(-1, -4, num=20))  # set a decreasing sequence of lambda values for glmnet to use
+m = ElasticNet(lower_limits=np.array([0, -np.inf, 0]), upper_limits=np.array([np.inf, 3, np.inf]))  # set limits on the coefficients
+m = ElasticNet(n_splits=30)  # set the number of cross-validation splits - note that CV is enabled by default.
+```
+
+Once the model is defined, we can set weights for each observation in the fit method.
+
+```python
+m.fit(X=x, y=y, sample_weights=np.array([1, 3, 1])  # the weights get standardised internally
 ```
 
 Predict:
